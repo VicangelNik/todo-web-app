@@ -18,14 +18,9 @@
 							"\r",
 							"pm.test(\"Object is contained\", () => {\r",
 							"  const expectedObject = {\r",
-							"    \"taskName\": \"bug fixing\",\r",
-							"    \"taskDescription\": \"Fix bug\",\r",
-							"    \"deadline\": \"2022-02-14 19:22:02\",\r",
-							"    \"taskCategories\": {\r",
-							"        \"categoryName\": \"Development\",\r",
-							"        \"categoryDescription\": \"Development lifecycle\"\r",
-							"    }\r",
-							"};\r",
+							"    \"taskName\": \"implementation\",\r",
+							"    \"taskDescription\": \"add new feature\"\r",
+							"  };\r",
 							"\r",
 							"pm.expect(pm.response.json()).to.deep.include(expectedObject);\r",
 							"});"
@@ -38,7 +33,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/get-task/2",
+					"raw": "http://localhost:8080/get-task/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -46,7 +41,7 @@
 					"port": "8080",
 					"path": [
 						"get-task",
-						"2"
+						"1"
 					]
 				}
 			},
@@ -61,20 +56,6 @@
 						"exec": [
 							"pm.test(\"Request is successful with a status code of 302\", function () {\r",
 							"  pm.response.to.have.status(302);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Object is contained\", () => {\r",
-							"  const expectedObject = {\r",
-							"        \"taskName\": \"bug fixing\",\r",
-							"        \"taskDescription\": \"Fix bug\",\r",
-							"        \"deadline\": \"2022-02-14 19:06:29\",\r",
-							"        \"taskCategories\": {\r",
-							"            \"categoryName\": \"Development\",\r",
-							"            \"categoryDescription\": \"Development lifecycle\"\r",
-							"        }\r",
-							"    };\r",
-							"\r",
-							"pm.expect(pm.response.json()).to.deep.include(expectedObject);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -335,7 +316,20 @@
 			"response": []
 		},
 		{
-			"name": "Create Task Category Copy",
+			"name": "Update Task Category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Request is successful with a status code of 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],

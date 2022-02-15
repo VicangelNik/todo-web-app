@@ -1,8 +1,7 @@
-package ch.cern.todo.services;
+package ch.cern.todo.controllers;
 
-import ch.cern.todo.entities.TaskCategories;
-import ch.cern.todo.repositories.TaskCategoriesRepository;
-import lombok.extern.slf4j.Slf4j;
+import ch.cern.todo.entities.TaskCategory;
+import ch.cern.todo.services.TaskCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,16 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @RestController
-public class TaskCategoryService {
+public class TaskCategoryController {
+
     @Autowired
-    TaskCategoriesRepository taskCategoriesRepository;
+    TaskCategoryService taskCategoryService;
 
     @GetMapping("/get-all-task_categories")
-    public ResponseEntity<List<TaskCategories>> retrieveTaskCategories() {
-        log.info("Retrieving all tasks categories");
-        List<TaskCategories> taskCategoriesList = taskCategoriesRepository.findAll();
+    public ResponseEntity<List<TaskCategory>> retrieveTaskCategories() {
+        List<TaskCategory> taskCategoriesList = taskCategoryService.getTaskCategories();
         if (taskCategoriesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -29,9 +27,8 @@ public class TaskCategoryService {
     }
 
     @GetMapping("/get-task_category/{id}")
-    public ResponseEntity<TaskCategories> retrieveTaskCategory(@PathVariable(value = "id", required = true) String id) {
-        log.info("Retrieving task category with id {}", id);
-        Optional<TaskCategories> optionalTaskCategories = taskCategoriesRepository.findById(Long.valueOf(id));
+    public ResponseEntity<TaskCategory> retrieveTaskCategory(@PathVariable(value = "id", required = true) Long id) {
+        Optional<TaskCategory> optionalTaskCategories = taskCategoryService.getTaskCategoryById(id);
         if (optionalTaskCategories.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -39,24 +36,24 @@ public class TaskCategoryService {
     }
 
     @PostMapping(path = "create-task_category", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TaskCategories> createTaskCategory(@RequestBody TaskCategories taskCategories) {
-        TaskCategories updatedTaskCategories = taskCategoriesRepository.save(taskCategories);
+    public ResponseEntity<TaskCategory> createTaskCategory(@RequestBody TaskCategory taskCategory) {
+        TaskCategory updatedTaskCategories = taskCategoryService.saveTaskCategory(taskCategory);
 
-        TaskCategories returnValue = taskCategoriesRepository.findById(updatedTaskCategories.getCategoryId()).get();
+        TaskCategory returnValue = taskCategoryService.getTaskCategoryById(updatedTaskCategories.getCategoryId()).get();
         return new ResponseEntity<>(returnValue, HttpStatus.OK);
     }
 
     @DeleteMapping("delete-task_category/{id}")
     public ResponseEntity<Long> deleteTaskCategory(@PathVariable Long id) {
-        Optional<TaskCategories> optionalTaskCategories = taskCategoriesRepository.findById(id);
+        Optional<TaskCategory> optionalTaskCategories = taskCategoryService.getTaskCategoryById(id);
 
         if (optionalTaskCategories.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        taskCategoriesRepository.delete(optionalTaskCategories.get());
+        taskCategoryService.deleteTaskCategory(optionalTaskCategories.get());
 
-        optionalTaskCategories = taskCategoriesRepository.findById(id);
+        optionalTaskCategories = taskCategoryService.getTaskCategoryById(id);
 
         if (optionalTaskCategories.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
@@ -65,9 +62,9 @@ public class TaskCategoryService {
     }
 
     @PostMapping(path = "update-task_category/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TaskCategories> updateTaskCategory(@PathVariable Long id,
-                                                             @RequestBody TaskCategories taskCategories) {
-        Optional<TaskCategories> optionalTaskCategories = taskCategoriesRepository.findById(id);
+    public ResponseEntity<TaskCategory> updateTaskCategory(@PathVariable Long id,
+                                                           @RequestBody TaskCategory taskCategories) {
+        Optional<TaskCategory> optionalTaskCategories = taskCategoryService.getTaskCategoryById(id);
         if (optionalTaskCategories.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -79,7 +76,7 @@ public class TaskCategoryService {
                 task.setCategoryDescription(taskCategories.getCategoryDescription());
             }
         });
-        TaskCategories updatedTaskCategory = taskCategoriesRepository.save(optionalTaskCategories.get());
+        TaskCategory updatedTaskCategory = taskCategoryService.saveTaskCategory(optionalTaskCategories.get());
         return new ResponseEntity<>(updatedTaskCategory, HttpStatus.OK);
     }
 }

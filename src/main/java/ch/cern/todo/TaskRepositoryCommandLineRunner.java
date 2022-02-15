@@ -1,7 +1,7 @@
 package ch.cern.todo;
 
 import ch.cern.todo.entities.Task;
-import ch.cern.todo.entities.TaskCategories;
+import ch.cern.todo.entities.TaskCategory;
 import ch.cern.todo.repositories.TaskCategoriesRepository;
 import ch.cern.todo.repositories.TaskRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class TaskRepositoryCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        TaskCategories taskCategories = new TaskCategories("Development", "Development lifecycle");
-        TaskCategories taskCategories1 = new TaskCategories("Testing", "Testing lifecycle");
+        TaskCategory taskCategories = new TaskCategory("Development", "Development lifecycle");
+        TaskCategory taskCategories1 = new TaskCategory("Testing", "Testing lifecycle");
 
-        TaskCategories newTaskCategories = taskCategoriesRepository.save(taskCategories);
+        TaskCategory newTaskCategories = taskCategoriesRepository.save(taskCategories);
         log.info("New task category is created : " + newTaskCategories);
-        TaskCategories newTaskCategories1 = taskCategoriesRepository.save(taskCategories1);
+        TaskCategory newTaskCategories1 = taskCategoriesRepository.save(taskCategories1);
         log.info("New task category is created : " + newTaskCategories1);
 
         Task task = new Task("implementation", "add new feature", new Date(), taskCategories);

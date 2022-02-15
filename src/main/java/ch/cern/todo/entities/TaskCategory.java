@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity(name = "task_categories")
 @NoArgsConstructor
-public class TaskCategories {
+public class TaskCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
@@ -22,7 +22,7 @@ public class TaskCategories {
     @Column(name = "category_description")
     private String categoryDescription;
 
-    public TaskCategories(String categoryName, String categoryDescription) {
+    public TaskCategory(String categoryName, String categoryDescription) {
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
     }

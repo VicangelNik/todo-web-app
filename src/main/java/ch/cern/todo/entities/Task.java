@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity
+@Entity(name = "tasks")
 @NoArgsConstructor
 public class Task {
     @Id
@@ -30,9 +30,9 @@ public class Task {
     private Date deadline;
     @ManyToOne(fetch = FetchType.EAGER) // FetchType.LAZY creates a bug.
     @JoinColumn(name = "category_id")
-    private TaskCategories taskCategories;
+    private TaskCategory taskCategories;
 
-    public Task(String taskName, String taskDescription, Date deadline, TaskCategories taskCategories) {
+    public Task(String taskName, String taskDescription, Date deadline, TaskCategory taskCategories) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.deadline = deadline;
