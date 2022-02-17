@@ -18,6 +18,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation group: 'org.springframework.boot', name: 'spring-boot-devtools'
     implementation group: 'org.springframework.data', name: 'spring-data-jpa'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     runtimeOnly 'com.h2database:h2'

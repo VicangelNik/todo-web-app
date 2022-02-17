@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class TaskController {
     }
 
     @PostMapping(path = "create-task", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         Task updatedTask = taskService.saveTask(task);
         Task returnValue = taskService.getTaskById(updatedTask.getTaskId()).get();
         return new ResponseEntity<>(returnValue, HttpStatus.OK);
@@ -61,7 +62,7 @@ public class TaskController {
     }
 
     @PostMapping(path = "update-task/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task tasks) {
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @Valid @RequestBody Task tasks) {
         Optional<Task> optionalTask = taskService.getTaskById(id);
         if (optionalTask.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Data
@@ -20,11 +20,11 @@ public class Task {
     @JsonIgnore
     private long taskId;
     @Column(name = "task_name")
-    @NonNull
+    @NotBlank(message = "Task name is mandatory")
     private String taskName;
     @Column(name = "task_description")
     private String taskDescription;
-    @NonNull
+    @NotBlank(message = "deadline is mandatory")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date deadline;

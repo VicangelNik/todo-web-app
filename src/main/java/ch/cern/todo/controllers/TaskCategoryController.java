@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class TaskCategoryController {
     }
 
     @PostMapping(path = "create-task_category", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TaskCategory> createTaskCategory(@RequestBody TaskCategory taskCategory) {
+    public ResponseEntity<TaskCategory> createTaskCategory(@Valid @RequestBody TaskCategory taskCategory) {
         TaskCategory updatedTaskCategories = taskCategoryService.saveTaskCategory(taskCategory);
 
         TaskCategory returnValue = taskCategoryService.getTaskCategoryById(updatedTaskCategories.getCategoryId()).get();
@@ -63,7 +64,7 @@ public class TaskCategoryController {
 
     @PostMapping(path = "update-task_category/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TaskCategory> updateTaskCategory(@PathVariable Long id,
-                                                           @RequestBody TaskCategory taskCategories) {
+                                                           @Valid @RequestBody TaskCategory taskCategories) {
         Optional<TaskCategory> optionalTaskCategories = taskCategoryService.getTaskCategoryById(id);
         if (optionalTaskCategories.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
