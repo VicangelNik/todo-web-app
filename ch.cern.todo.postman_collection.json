@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "f278ba5c-9084-4bcd-8407-d8d812596235",
+		"name": "ch.cern.todo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13846149"
+	},
+	"item": [
+		{
+			"name": "save task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"todo3\",\n  \"description\": \"dentist appointment\",\n  \"deadLine\": \"2024-04-10T23:03:56\",\n  \"categoryName\": \"Personal Development\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/tasks/delete/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"tasks",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
