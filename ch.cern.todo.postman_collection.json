@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"todo3\",\n  \"description\": \"dentist appointment\",\n  \"deadLine\": \"2024-04-10T23:03:56\",\n  \"categoryName\": \"Personal Development\"\n}",
+					"raw": "{\n  \"name\": \"todo7\",\n  \"description\": \"dentist appointment\",\n  \"deadLine\": \"2024-04-25T23:03:56\",\n  \"categoryName\": \"Personal Development\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,6 +30,36 @@
 					"path": [
 						"api",
 						"tasks",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Household Chores1\",\n  \"description\": \"Cleaning (dishes, laundry, vacuuming, etc.)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/category/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"category",
 						"save"
 					]
 				}
@@ -58,6 +88,49 @@
 			"response": []
 		},
 		{
+			"name": "get categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/category/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"category",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get tasks of category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/category/1/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"category",
+						"1",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "delete task",
 			"request": {
 				"method": "DELETE",
@@ -74,6 +147,28 @@
 						"tasks",
 						"delete",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete category",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/category/delete/152",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"category",
+						"delete",
+						"152"
 					]
 				}
 			},

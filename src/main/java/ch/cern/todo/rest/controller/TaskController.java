@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ final class TaskController {
     return new ResponseEntity<>(mapper.mapToResponse(saved), HttpStatus.CREATED);
   }
 
+  @CrossOrigin(origins = "http://localhost:4200")
   @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<TaskResponse>> fetchTasks() {
     final List<TaskResponse> responseList = service.fetchTasks().stream().map(mapper::mapToResponse).toList();
@@ -48,7 +50,7 @@ final class TaskController {
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<Void> deleteDepartmentById(@PathVariable("id") long taskId) {
+  public ResponseEntity<Void> deleteTask(@PathVariable("id") long taskId) {
     service.removeTask(taskId);
     return ResponseEntity.ok().build();
   }

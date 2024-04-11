@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import ch.cern.todo.business.error.ApiError;
+import ch.cern.todo.business.error.CategoryHasTasksException;
 import ch.cern.todo.business.error.CategoryNotFoundException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -31,6 +32,13 @@ public class RestExceptionGlobalHandler {
   @ExceptionHandler(CategoryNotFoundException.class)
   protected ResponseEntity<Object> handleCategoryNotFoundException(
     CategoryNotFoundException ex) {
+    final var apiError = new ApiError(List.of(ex.getMessage()));
+    return buildResponseEntity(BAD_REQUEST, apiError);
+  }
+
+  @ExceptionHandler(CategoryHasTasksException.class)
+  protected ResponseEntity<Object> handleCategoryNotFoundException(
+    CategoryHasTasksException ex) {
     final var apiError = new ApiError(List.of(ex.getMessage()));
     return buildResponseEntity(BAD_REQUEST, apiError);
   }
